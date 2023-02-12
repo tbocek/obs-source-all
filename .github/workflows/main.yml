@@ -10,6 +10,8 @@ jobs:
   source_build:
     name: 'Source'
     runs-on: [ubuntu-22.04]
+    permissions:
+      contents: write
     defaults:
       run:
         shell: bash
@@ -47,6 +49,8 @@ jobs:
       - name: 'Release'
         uses: ncipollo/release-action@v1
         with:
+          name: '${{ github.event.inputs.tag }}'
+          owner: 'tbocek'
           repo: 'tbocek/obs-source-all'
           tag: '${{ github.event.inputs.tag }}'
           artifacts: '${{ env.FILE_NAME }}'

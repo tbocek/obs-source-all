@@ -22,10 +22,10 @@ jobs:
           submodules: 'recursive'
           path: 'obs-studio'
           fetch-depth: 0
-          ref: 'tags/${{ github.event.inputs.tag }}'
 
       - name: 'Create source artifact'
         run: |
+          git checkout tags/${{ github.event.inputs.tag }}
           prefix=obs-studio-${{ github.event.inputs.tag }}
           commit_date=$(git show -s --format=%cI ${commitHash})
           outfile=${prefix}.tar.gz

@@ -43,7 +43,7 @@ jobs:
           cd ..
           git clone https://github.com/tbocek/obs-source-all.git
           cd obs-source-all
-          mv ../obs-studio/${outfile} .
+          mv ../obs-studio/${ARTIFACT_NAME} .
 
       - name: 'Release'
         uses: ncipollo/release-action@v1

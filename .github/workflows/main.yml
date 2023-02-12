@@ -45,6 +45,8 @@ jobs:
           cd ..
           git clone https://github.com/tbocek/obs-source-all.git
           mv ${ARTIFACT_NAME} obs-source-all
+          cd obs-source-all
+          git tag ${{ github.event.inputs.tag }} && git push origin ${{ github.event.inputs.tag }}
 
       - name: 'Release'
         uses: ncipollo/release-action@v1

@@ -1,0 +1,48 @@
+name: 'BUILD'
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        required: true
+
+jobs:
+  source_build:
+    name: 'Source'
+    runs-on: [ubuntu-22.04]
+    defaults:
+      run:
+        shell: bash
+        working-directory: 'obs-studio'
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v3
+        with:
+          repository: 'https://github.com/obsproject/obs-studio'
+          submodules: 'recursive'
+          path: 'obs-studio'
+          fetch-depth: 0
+
+      - name: 'Create source artifact'
+        run: |
+          git checkout tags/${{ github.event.inputs.message }}
+          prefix=obs-studio-${{ github.event.inputs.message }}
+          commit_date=$(git show -s --format=%cI ${commitHash})
+          outfile=${prefix}.tar.gz
+          ARTIFACT_NAME=${outfile}
+          outfile=${{ github.workspace }}/${outfile}
+          echo "outfile: $outfile"
+          echo "artifact: $ARTIFACT_NAME"
+          # create a tarball with *all* the sources
+          # - prefix paths with 'obs-studio/' (since we are creating the tarball from within the source dir)
+          # - exclude all repository files
+          # - make the tarball reproducible
+          tar -cvzf ${outfile}  --transform='s|^\.|obs-studio|'  --exclude-vcs --exclude-vcs-ignores --exclude '.git*'  --sort=name  --owner=0 --group=0 --numeric-owner --pax-option="exthdr.name=%d/PaxHeaders/%f,delete=atime,delete=ctime" --mtime="${commit_date}"  .
+          # announce artifact for upload
+          echo "FILE_NAME=${ARTIFACT_NAME}" >> $GITHUB_ENV
+
+      - name: 'Upload source artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'obs-studio-source-${{ github.event.inputs.message }}'
+          path: '${{ github.workspace }}/${{ env.FILE_NAME }}'

@@ -27,7 +27,7 @@ jobs:
           git -C obs-studio checkout tags/${{ github.event.inputs.tag }}
           git -C obs-studio submodule update --init --recursive 
           prefix=obs-studio-${{ github.event.inputs.tag }}
-          ARTIFACT_NAME=${outfile}
+          ARTIFACT_NAME=${prefix}.tar.gz
           echo "artifact: $ARTIFACT_NAME"
           # create a tarball with *all* the sources
           # - prefix paths with 'obs-studio/' (since we are creating the tarball from within the source dir)

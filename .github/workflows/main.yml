@@ -21,7 +21,7 @@ jobs:
 
       - name: 'Create source artifact'
         run: |
-          cd /tmp
+          mkdir /tmp/build && cd /tmp/build
           git clone https://github.com/obsproject/obs-studio.git
           git -C obs-studio checkout tags/${{ github.event.inputs.tag }}
           git -C obs-studio submodule update --init --recursive 
@@ -36,7 +36,7 @@ jobs:
           # announce artifact for upload
           cd -
           echo "FILE_NAME=${ARTIFACT_NAME}" >> $GITHUB_ENV
-          mv /tmp/${ARTIFACT_NAME} .
+          mv /tmp/build/${ARTIFACT_NAME} .
           git tag ${{ github.event.inputs.tag }}
           git push origin --tags
 

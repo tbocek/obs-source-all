@@ -25,7 +25,7 @@ jobs:
 
       - name: 'Create source artifact'
         run: |
-          cd /tmp
+          mkdir obs-studio
           git clone https://github.com/obsproject/obs-studio.git
           #git -C /tmp/obs-studio checkout tags/${{ github.event.inputs.tag }}
           #prefix=obs-studio-${{ github.event.inputs.tag }}

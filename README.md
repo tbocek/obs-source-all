@@ -5,9 +5,10 @@ This is a temporary hack, until this gets merged:
 https://bugs.archlinux.org/task/76710?project=5&string=obs-studio
 https://github.com/obsproject/obs-studio/pull/7475
 
-Use it as follows
+The github action in this repository creates a tarball with alle the plugins (including websockets). To install it, run:
 
 ```
 git clone https://github.com/tbocek/obs-source-all.git
 makepkg -Acs
+pacman -U obs-studio-29.0.2-1-x86_64.pkg.tar.zst
 ```

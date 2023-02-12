@@ -1,4 +1,4 @@
-obs-studio-*.tar.gz
+obs-studio-*.tar.*
 .idea
 src
 pkg

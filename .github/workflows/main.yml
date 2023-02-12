@@ -22,14 +22,11 @@ jobs:
       - name: 'Create source artifact'
         run: |
           cd /tmp
-          git clone --recurse-submodules https://github.com/obsproject/obs-studio.git
-          git -C /tmp/obs-studio checkout tags/${{ github.event.inputs.tag }}
+          git clone --recurse-submodules https://github.com/obsproject/obs-studio.git --branch tags/${{ github.event.inputs.tag }}
           prefix=obs-studio-${{ github.event.inputs.tag }}
           commit_date=$(git show -s --format=%cI ${commitHash})
           outfile=${prefix}.tar.gz
           ARTIFACT_NAME=${outfile}
-          #outfile=${{ github.workspace }}/${outfile}
-          echo "outfile: $outfile"
           echo "artifact: $ARTIFACT_NAME"
           # create a tarball with *all* the sources
           # - prefix paths with 'obs-studio/' (since we are creating the tarball from within the source dir)

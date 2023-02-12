@@ -43,9 +43,11 @@ jobs:
           ls -la
           echo "FILE_NAME=${ARTIFACT_NAME}" >> $GITHUB_ENV
           cd ..
+          pwd
+          ls -la
           git clone https://github.com/tbocek/obs-source-all.git
           cd obs-source-all
-          mv ../obs-studio/${ARTIFACT_NAME} .
+          mv ../${ARTIFACT_NAME} .
 
       - name: 'Release'
         uses: ncipollo/release-action@v1

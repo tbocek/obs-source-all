@@ -25,8 +25,8 @@ jobs:
 
       - name: 'Create source artifact'
         run: |
-          git checkout tags/${{ github.event.inputs.message }}
-          prefix=obs-studio-${{ github.event.inputs.message }}
+          git checkout tags/${{ github.event.inputs.tag }}
+          prefix=obs-studio-${{ github.event.inputs.tag }}
           commit_date=$(git show -s --format=%cI ${commitHash})
           outfile=${prefix}.tar.gz
           ARTIFACT_NAME=${outfile}
@@ -44,5 +44,5 @@ jobs:
       - name: 'Upload source artifact'
         uses: actions/upload-artifact@v3
         with:
-          name: 'obs-studio-source-${{ github.event.inputs.message }}'
+          name: 'obs-studio-source-${{ github.event.inputs.tag }}'
           path: '${{ github.workspace }}/${{ env.FILE_NAME }}'

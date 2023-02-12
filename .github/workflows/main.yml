@@ -18,7 +18,7 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v3
         with:
-          repository: 'https://github.com/obsproject/obs-studio'
+          repository: 'obsproject/obs-studio'
           submodules: 'recursive'
           path: 'obs-studio'
           fetch-depth: 0

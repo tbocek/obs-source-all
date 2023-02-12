@@ -27,7 +27,7 @@ jobs:
         run: |
           cd /tmp
           git clone --recurse-submodules https://github.com/obsproject/obs-studio.git
-          git -C obs-studio checkout tags/${{ github.event.inputs.tag }}
+          git -C /tmp/obs-studio checkout tags/${{ github.event.inputs.tag }}
           prefix=obs-studio-${{ github.event.inputs.tag }}
           commit_date=$(git show -s --format=%cI ${commitHash})
           outfile=${prefix}.tar.gz

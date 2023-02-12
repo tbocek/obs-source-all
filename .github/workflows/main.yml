@@ -22,10 +22,10 @@ jobs:
       - name: 'Create source artifact'
         run: |
           cd /tmp
-          git clone --recurse-submodules https://github.com/obsproject/obs-studio.git --branch tags/${{ github.event.inputs.tag }}
+          git clone https://github.com/obsproject/obs-studio.git
+          git -C obs-studio checkout tags/${{ github.event.inputs.tag }}
+          git -C obs-studio submodule update --init --recursive 
           prefix=obs-studio-${{ github.event.inputs.tag }}
-          commit_date=$(git show -s --format=%cI ${commitHash})
-          outfile=${prefix}.tar.gz
           ARTIFACT_NAME=${outfile}
           echo "artifact: $ARTIFACT_NAME"
           # create a tarball with *all* the sources
@@ -37,6 +37,8 @@ jobs:
           cd -
           echo "FILE_NAME=${ARTIFACT_NAME}" >> $GITHUB_ENV
           mv /tmp/${ARTIFACT_NAME} .
+          git tag ${{ github.event.inputs.tag }}
+          git push origin --tags
 
       - name: 'Release'
         uses: ncipollo/release-action@v1

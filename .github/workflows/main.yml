@@ -49,8 +49,12 @@ jobs:
           repository: 'tbocek/obs-source-all'
           path: 'obs-source-all'
           fetch-depth: 0
+
+      - name: 'Copy'
         run: |
           mv ../${{ env.FILE_NAME }} .
+          pwd ls
+          git show
           git tag ${{ github.event.inputs.tag }} && git push origin ${{ github.event.inputs.tag }}
 
       - name: 'Release'

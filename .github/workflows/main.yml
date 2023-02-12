@@ -43,14 +43,12 @@ jobs:
           # announce artifact for upload
           echo "FILE_NAME=${ARTIFACT_NAME}" >> $GITHUB_ENV
 
-      - name: 'Checkout'
+      - name: 'Checkout 2'
         uses: actions/checkout@v3
         with:
           repository: 'tbocek/obs-source-all'
           path: 'obs-source-all'
           fetch-depth: 0
-
-      - name: 'Copy'
         run: |
           mv ../${{ env.FILE_NAME }} .
           git tag ${{ github.event.inputs.tag }} && git push origin ${{ github.event.inputs.tag }}

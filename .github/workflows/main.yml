@@ -39,22 +39,17 @@ jobs:
           # - make the tarball reproducible
           tar -cvzf ${outfile}  --transform='s|^\.|obs-studio|'  --exclude-vcs --exclude-vcs-ignores --exclude '.git*'  --sort=name  --owner=0 --group=0 --numeric-owner --pax-option="exthdr.name=%d/PaxHeaders/%f,delete=atime,delete=ctime" --mtime="${commit_date}"  .
           # announce artifact for upload
-          pwd
-          ls -la
           echo "FILE_NAME=${ARTIFACT_NAME}" >> $GITHUB_ENV
           cd ..
-          pwd
-          ls -la
           git clone https://github.com/tbocek/obs-source-all.git
-          cd obs-source-all
-          mv ../${ARTIFACT_NAME} .
+          mv ${ARTIFACT_NAME} obs-source-all
 
       - name: 'Release'
         uses: ncipollo/release-action@v1
         with:
           repo: 'tbocek/obs-source-all'
           tag: '${{ github.event.inputs.tag }}'
-          artifacts: '${{ github.workspace }}/${{ env.FILE_NAME }}'
+          artifacts: '${{ env.FILE_NAME }}'
 
       - name: 'Upload source artifact'
         uses: actions/upload-artifact@v3

@@ -2,14 +2,14 @@
 # Contributor: Benjamin Klettbach <b.klettbach@gmail.com>
 
 pkgname=obs-studio
-pkgver=29.1.1
-pkgrel=2
+pkgver=29.1.3
+pkgrel=1
 pkgdesc="Free, open source software for live streaming and recording"
 arch=('x86_64')
 url="https://obsproject.com"
 license=('GPL2')
 depends=('ffmpeg' 'jansson' 'libxinerama' 'libxkbcommon-x11' 'mbedtls' 'rnnoise' 'pciutils'
-         'qt6-svg' 'curl' 'jack' 'gtk-update-icon-cache' 'pipewire' 'libxcomposite' 'websocketpp' 'asio')
+         'qt6-svg' 'curl' 'jack' 'gtk-update-icon-cache' 'pipewire' 'libxcomposite' 'websocketpp' 'asio' 'nlohmann-json')
 makedepends=('cmake' 'libfdk-aac' 'x264' 'swig' 'python' 'luajit' 'sndio')
 optdepends=('libfdk-aac: FDK AAC codec support'
             'libva-intel-driver: hardware encoding'
@@ -21,7 +21,7 @@ optdepends=('libfdk-aac: FDK AAC codec support'
 source=($pkgname-$pkgver.tar.gz::https://github.com/tbocek/obs-source-all/releases/download/$pkgver/obs-studio-$pkgver.tar.gz
         fix_python_binary_loading.patch
         ignore_unused_submodules.patch)
-sha256sums=('e329ffca56d0dada9758e28484195ebb3628d76210f574bc326dd3bd22a540e0'
+sha256sums=('1e1ac28ad2d483f3a8b60e6ad8e4c91f04cabb3a2cd0ad0b06ce3944b1eab0e8'
             'bdfbd062f080bc925588aec1989bb1df34bf779cc2fc08ac27236679cf612abd'
             '60b0ee1f78df632e1a8c13cb0a7a5772b2a4b092c4a2a78f23464a7d239557c3')
 

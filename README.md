@@ -10,5 +10,5 @@ The github action in this repository creates a tarball with alle the plugins (in
 ```
 git clone https://github.com/tbocek/obs-source-all.git
 MAKEFLAGS="-j$(nproc)" makepkg -Acs
-sudo pacman -U obs-studio-29.1.3-1-x86_64.pkg.tar.zst
+sudo pacman -U obs-studio-30.0.2-4-x86_64.pkg.tar.zst
 ```

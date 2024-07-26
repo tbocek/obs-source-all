@@ -1,16 +1,17 @@
 # Maintainer: Jonathan Steel <jsteel at archlinux.org>
 # Contributor: Benjamin Klettbach <b.klettbach@gmail.com>
+# Contributor: Maciek Marciniak <mm2pl at kotmisia.pl>
 
 pkgname=obs-studio
-pkgver=30.1.2
-pkgrel=2
+pkgver=30.2.1
+pkgrel=1
 pkgdesc="Free, open source software for live streaming and recording"
 arch=('x86_64')
 url="https://obsproject.com"
 license=('GPL2')
 depends=('ffmpeg' 'jansson' 'libxinerama' 'libxkbcommon-x11' 'mbedtls' 'rnnoise' 'pciutils'
          'qt6-svg' 'curl' 'jack' 'gtk-update-icon-cache' 'pipewire' 'libxcomposite'
-         'libdatachannel')
+         'libdatachannel' 'uthash')
 makedepends=('cmake' 'libfdk-aac' 'x264' 'swig' 'python' 'luajit' 'sndio' 'nlohmann-json')
 optdepends=('libfdk-aac: FDK AAC codec support'
             'libva-intel-driver: hardware encoding'
@@ -19,24 +20,16 @@ optdepends=('libfdk-aac: FDK AAC codec support'
             'python: scripting support'
             'sndio: Sndio input client'
             'v4l2loopback-dkms: virtual camera support')
-source=($pkgname-$pkgver.tar.gz::https://github.com/tbocek/obs-source-all/releases/download/$pkgver/obs-studio-$pkgver.tar.gz
-        fix_python_binary_loading.patch
-        ignore_unused_submodules.patch
-        0001-obs-ffmpeg-Fix-incompatible-pointer-types-with-FFmpe.patch)
-sha256sums=('a778ec0abac55a0516b372035b422ccdf0a80207bb8f3708634741c413d1253a'
-            'bdfbd062f080bc925588aec1989bb1df34bf779cc2fc08ac27236679cf612abd'
-            '60b0ee1f78df632e1a8c13cb0a7a5772b2a4b092c4a2a78f23464a7d239557c3'
-            'f4356ddabd4b54662f685ec88432e2830cdeb1904665d14c64d2daa3ea7d254e')
+source=($pkgname-$pkgver.tar.gz::https://github.com/tbocek/obs-source-all/releases/download/$pkgver/obs-studio-$pkgver.tar.gz)
+sha256sums=('f1071ac5604a1881e1715b323fb5cb198106e11e8c0af3b67f4d56c6fc537b08')
 
 prepare() {
   cd $pkgname-$pkgver
-  patch -Np1 < "$srcdir"/fix_python_binary_loading.patch
-  patch -Np1 < "$srcdir"/ignore_unused_submodules.patch
-  patch -Np1 < "$srcdir"/0001-obs-ffmpeg-Fix-incompatible-pointer-types-with-FFmpe.patch
 }
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
+    -DENABLE_NATIVE_NVENC=OFF \
     -DCMAKE_INSTALL_PREFIX="/usr" \
     -DENABLE_BROWSER=OFF \
     -DENABLE_VST=ON \

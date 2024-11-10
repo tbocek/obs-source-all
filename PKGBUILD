@@ -3,7 +3,7 @@
 # Contributor: Maciek Marciniak <mm2pl at kotmisia.pl>
 
 pkgname=obs-studio
-pkgver=30.2.1
+pkgver=30.2.3
 pkgrel=1
 pkgdesc="Free, open source software for live streaming and recording"
 arch=('x86_64')
@@ -21,7 +21,7 @@ optdepends=('libfdk-aac: FDK AAC codec support'
             'sndio: Sndio input client'
             'v4l2loopback-dkms: virtual camera support')
 source=($pkgname-$pkgver.tar.gz::https://github.com/tbocek/obs-source-all/releases/download/$pkgver/obs-studio-$pkgver.tar.gz)
-sha256sums=('f1071ac5604a1881e1715b323fb5cb198106e11e8c0af3b67f4d56c6fc537b08')
+sha256sums=('5b80d6ee6053f4c59c6ad93ed17be1376d0b161311902041bea6de3414ad8ec5')
 
 prepare() {
   cd $pkgname-$pkgver

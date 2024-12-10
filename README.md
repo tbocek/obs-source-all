@@ -10,7 +10,7 @@ The github action in this repository creates a tarball with alle the plugins (in
 ```
 git clone https://github.com/tbocek/obs-source-all.git
 MAKEFLAGS="-j$(nproc)" makepkg -Acs
-sudo pacman -U obs-studio-30.2.3-1-x86_64.pkg.tar.zst
+sudo pacman -U obs-studio-31.0.0-2-x86_64.pkg.tar.zst
 ```
 
 This version includes Websockets, but disables NVenc.

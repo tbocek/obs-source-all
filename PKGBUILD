@@ -3,8 +3,8 @@
 # Contributor: Maciek Marciniak <mm2pl at kotmisia.pl>
 
 pkgname=obs-studio
-pkgver=30.2.3
-pkgrel=1
+pkgver=31.0.0
+pkgrel=2
 pkgdesc="Free, open source software for live streaming and recording"
 arch=('x86_64')
 url="https://obsproject.com"
@@ -21,13 +21,14 @@ optdepends=('libfdk-aac: FDK AAC codec support'
             'sndio: Sndio input client'
             'v4l2loopback-dkms: virtual camera support')
 source=($pkgname-$pkgver.tar.gz::https://github.com/tbocek/obs-source-all/releases/download/$pkgver/obs-studio-$pkgver.tar.gz)
-sha256sums=('5b80d6ee6053f4c59c6ad93ed17be1376d0b161311902041bea6de3414ad8ec5')
+sha256sums=('b135a0e6dafab853ff3749d67003bd847316aec36646cbdb41218cbfab03c709')
 
 prepare() {
   cd $pkgname-$pkgver
 }
 
 build() {
+  export CFLAGS+=" -Wno-error=deprecated-declarations"
   cmake -B build -S $pkgname-$pkgver \
     -DENABLE_NATIVE_NVENC=OFF \
     -DCMAKE_INSTALL_PREFIX="/usr" \
@@ -41,6 +42,7 @@ build() {
     -DENABLE_WEBRTC=ON \
     -DOBS_VERSION_OVERRIDE="$pkgver-$pkgrel" \
     -DCALM_DEPRECATION=ON \
+    -DENABLE_WEBSOCKET=ON \
     -Wno-dev
   cmake --build build
 }

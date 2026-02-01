@@ -1,3 +1,6 @@
+# Archived: Arch Linux enabled the websockets plugin since version 32.x by default, so I'm retiring this project
+
+
 # OBS for Arch Linux with websockets
 
 This repository provides a PKGBUILD for OBS Studio on Arch Linux, including WebSocket support.
